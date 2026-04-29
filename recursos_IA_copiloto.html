@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Copiloto Académico — Recursos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f4f6fb;
+    --bg2:       #eaecf5;
+    --surface:   #ffffff;
+    --surface2:  #f0f2fa;
+    --navy:      #1b3a6b;
+    --navy2:     #254d8f;
+    --orange:    #e8490f;
+    --orange2:   #ff6e38;
+    --text:      #111827;
+    --muted:     #6b7280;
+    --border:    #dde1ee;
+    --white:     #ffffff;
+    --c-notebook:  #0d9488;
+    --c-perplexity:#2563eb;
+    --c-gemini:    #7c3aed;
+    --c-canva:     #0891b2;
+    --c-claude:    #b45309;
+    --c-photo:     #dc2626;
+    --c-wolfram:   #b91c1c;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* HERO */
+  .hero { background: var(--navy); color: #fff; padding: 64px 24px 52px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; top:-80px; right:-80px; width:320px; height:320px; background:radial-gradient(circle,rgba(232,73,15,.35) 0%,transparent 70%); pointer-events:none; }
+  .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; background:rgba(232,73,15,.22); border:1px solid rgba(232,73,15,.45); color:#ffb89e; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:5px 16px; border-radius:100px; margin-bottom:22px; }
+  h1 { font-family:'Syne',sans-serif; font-size:clamp(2rem,6vw,3.6rem); font-weight:800; line-height:1.05; letter-spacing:-.03em; margin-bottom:16px; }
+  h1 .accent { color:var(--orange2); }
+  .hero-sub { max-width:540px; margin:0 auto 0; color:rgba(255,255,255,.72); font-size:1rem; font-weight:300; line-height:1.65; }
+
+  /* NAV */
+  .nav-bar { background:var(--navy2); padding:0 20px; display:flex; gap:4px; justify-content:center; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,.08); }
+  .nav-pill { display:inline-block; color:rgba(255,255,255,.65); font-size:13px; font-weight:500; padding:13px 15px; text-decoration:none; border-bottom:2px solid transparent; transition:all .18s; white-space:nowrap; }
+  .nav-pill:hover { color:#fff; border-bottom-color:var(--orange2); }
+
+  /* CONTENT */
+  .content { max-width:900px; margin:0 auto; padding:0 20px; }
+
+  /* SECTION */
+  .section { padding:60px 0 20px; }
+  .section-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .section-label { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--orange); }
+  .section-header::after { content:''; flex:1; height:1px; background:var(--border); }
+  .section-title { font-family:'Syne',sans-serif; font-size:1.55rem; font-weight:800; color:var(--navy); margin-bottom:6px; letter-spacing:-.02em; }
+  .section-desc { color:var(--muted); font-size:14px; margin-bottom:28px; }
+
+  /* TOOL CARDS */
+  .tools-grid { display:grid; gap:16px; }
+  .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:box-shadow .2s,transform .2s; }
+  .tool-card:hover { box-shadow:0 8px 32px rgba(27,58,107,.1); transform:translateY(-2px); }
+  .tool-stripe { height:4px; }
+  .tool-header { padding:20px 22px 14px; display:flex; align-items:flex-start; gap:14px; }
+  .tool-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+  .tool-info { flex:1; min-width:0; }
+  .tool-name { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:3px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .badge-free { font-size:10px; font-weight:600; padding:2px 8px; border-radius:100px; letter-spacing:.5px; }
+  .tool-tagline { color:var(--muted); font-size:13px; line-height:1.45; }
+  .tool-link { font-size:12px; font-weight:600; padding:6px 14px; border-radius:100px; text-decoration:none; white-space:nowrap; transition:opacity .18s,transform .18s; flex-shrink:0; align-self:center; border:1.5px solid; }
+  .tool-link:hover { opacity:.8; transform:translateY(-1px); }
+  .tool-body { padding:0 22px 22px; }
+  .uses-label { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .uses-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .use-tag { font-size:12px; font-weight:500; padding:4px 11px; border-radius:100px; background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
+  .divider { height:1px; background:var(--border); margin:0 0 18px; }
+
+  /* PROMPTS */
+  .prompts-stack { display:grid; gap:10px; }
+  .prompt-card { background:var(--surface2); border:1px solid var(--border); border-left:3px solid; border-radius:0 10px 10px 0; padding:12px 42px 12px 14px; position:relative; }
+  .prompt-meta { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:5px; }
+  .prompt-text { font-size:13px; color:#374151; line-height:1.65; font-style:italic; }
+  .prompt-text em { font-style:normal; font-weight:600; background:rgba(232,73,15,.09); border-radius:4px; padding:0 3px; color:var(--orange); }
+  .copy-btn { position:absolute; top:10px; right:10px; background:var(--white); border:1px solid var(--border); color:var(--muted); font-size:11px; font-weight:500; padding:3px 10px; border-radius:6px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .18s; }
+  .copy-btn:hover { background:var(--navy); color:white; border-color:var(--navy); }
+  .copy-btn.copied { color:var(--c-notebook); border-color:var(--c-notebook); }
+
+  /* GUIDE TABLE */
+  .guide-wrap { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+  table { width:100%; border-collapse:collapse; }
+  thead tr { background:var(--navy); }
+  th { text-align:left; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.7); padding:12px 20px; }
+  td { padding:13px 20px; font-size:13.5px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:hover td { background:var(--surface2); }
+  .guide-tool { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; padding:3px 10px; border-radius:100px; border:1px solid; }
+
+  /* GOLD PROMPTS */
+  .gold-grid { display:grid; gap:14px; }
+  .gold-card { background:var(--white); border:1px solid #fcd9c4; border-left:4px solid var(--orange); border-radius:0 14px 14px 0; padding:18px 20px 16px; }
+  .gold-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--orange); margin-bottom:10px; }
+  .gold-text { font-size:13.5px; color:#374151; line-height:1.7; font-style:italic; }
+  .gold-text em { font-style:normal; font-weight:600; background:rgba(232,73,15,.09); border-radius:4px; padding:0 3px; color:var(--orange); }
+  .gold-copy { margin-top:12px; background:var(--surface2); border:1px solid var(--border); color:var(--muted); font-size:11px; font-weight:600; padding:4px 14px; border-radius:6px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .18s; }
+  .gold-copy:hover { background:var(--navy); color:white; border-color:var(--navy); }
+  .gold-copy.copied { color:var(--c-notebook); border-color:var(--c-notebook); }
+
+  /* PROMPT GUIDE */
+  .prompt-guide { background:var(--navy); color:white; border-radius:20px; padding:36px 32px; margin-bottom:32px; position:relative; overflow:hidden; }
+  .prompt-guide::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; background:radial-gradient(circle,rgba(232,73,15,.3) 0%,transparent 70%); }
+  .prompt-guide-title { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800; margin-bottom:8px; }
+  .prompt-guide-sub { color:rgba(255,255,255,.65); font-size:14px; margin-bottom:28px; max-width:540px; line-height:1.6; }
+  .formula-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:12px; margin-bottom:20px; }
+  .formula-box { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px 16px; }
+  .formula-num { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--orange2); letter-spacing:1px; text-transform:uppercase; margin-bottom:5px; }
+  .formula-name { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:white; margin-bottom:4px; }
+  .formula-desc { font-size:12px; color:rgba(255,255,255,.55); line-height:1.4; }
+  .formula-example { background:rgba(232,73,15,.14); border:1px solid rgba(232,73,15,.3); border-radius:12px; padding:16px 20px; }
+  .formula-example-label { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--orange2); margin-bottom:8px; }
+  .formula-example-text { font-size:13px; color:rgba(255,255,255,.88); line-height:1.65; font-style:italic; }
+  .formula-example-text em { font-style:normal; color:var(--orange2); font-weight:600; }
+  .formula-tips { margin-top:18px; display:grid; gap:8px; }
+  .formula-tip { display:flex; gap:12px; align-items:flex-start; font-size:13px; color:rgba(255,255,255,.72); }
+  .formula-tip-icon { flex-shrink:0; margin-top:1px; }
+
+  /* PRES CARD */
+  .pres-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:center; }
+  .pres-icon { font-size:52px; flex-shrink:0; }
+  .pres-title { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
+  .pres-desc { color:var(--muted); font-size:13.5px; line-height:1.6; margin-bottom:16px; }
+  .pres-btn { display:inline-flex; align-items:center; gap:8px; background:var(--orange); color:white; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; padding:10px 22px; border-radius:100px; text-decoration:none; transition:background .18s,transform .18s; }
+  .pres-btn:hover { background:var(--orange2); transform:translateY(-1px); }
+
+  /* SURVIVAL */
+  .survival-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:24px; }
+  .survival-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; }
+  .survival-icon { font-size:28px; margin-bottom:10px; }
+  .survival-label { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .survival-text { color:var(--muted); font-size:12.5px; line-height:1.55; }
+
+  /* FOOTER */
+  footer { background:var(--navy); color:rgba(255,255,255,.55); text-align:center; padding:36px 24px 48px; font-size:12.5px; margin-top:80px; }
+  footer strong { color:white; font-family:'Syne',sans-serif; }
+
+  /* ANCHOR */
+  .anchor { display:block; height:80px; margin-top:-80px; pointer-events:none; }
+
+  /* COLORS */
+  .stripe-notebook   { background:var(--c-notebook); }
+  .stripe-perplexity { background:var(--c-perplexity); }
+  .stripe-gemini     { background:var(--c-gemini); }
+  .stripe-canva      { background:var(--c-canva); }
+  .stripe-claude     { background:var(--c-claude); }
+  .stripe-photo      { background:var(--c-photo); }
+  .stripe-wolfram    { background:var(--c-wolfram); }
+
+  .icon-notebook   { background:rgba(13,148,136,.1); }
+  .icon-perplexity { background:rgba(37,99,235,.1); }
+  .icon-gemini     { background:rgba(124,58,237,.1); }
+  .icon-canva      { background:rgba(8,145,178,.1); }
+  .icon-claude     { background:rgba(180,83,9,.1); }
+  .icon-photo      { background:rgba(220,38,38,.1); }
+  .icon-wolfram    { background:rgba(185,28,28,.1); }
+
+  .pb-notebook   { border-left-color:var(--c-notebook); }
+  .pb-perplexity { border-left-color:var(--c-perplexity); }
+  .pb-gemini     { border-left-color:var(--c-gemini); }
+  .pb-canva      { border-left-color:var(--c-canva); }
+  .pb-claude     { border-left-color:var(--c-claude); }
+
+  .pl-notebook   { color:var(--c-notebook); }
+  .pl-perplexity { color:var(--c-perplexity); }
+  .pl-gemini     { color:var(--c-gemini); }
+  .pl-canva      { color:var(--c-canva); }
+  .pl-claude     { color:var(--c-claude); }
+
+  .tl-notebook   { color:var(--c-notebook); border-color:var(--c-notebook); }
+  .tl-perplexity { color:var(--c-perplexity); border-color:var(--c-perplexity); }
+  .tl-gemini     { color:var(--c-gemini); border-color:var(--c-gemini); }
+  .tl-canva      { color:var(--c-canva); border-color:var(--c-canva); }
+  .tl-claude     { color:var(--c-claude); border-color:var(--c-claude); }
+  .tl-photo      { color:var(--c-photo); border-color:var(--c-photo); }
+  .tl-wolfram    { color:var(--c-wolfram); border-color:var(--c-wolfram); }
+
+  .bg-notebook   { background:rgba(13,148,136,.1); color:var(--c-notebook); border:1px solid rgba(13,148,136,.3); }
+  .bg-perplexity { background:rgba(37,99,235,.1); color:var(--c-perplexity); border:1px solid rgba(37,99,235,.3); }
+  .bg-gemini     { background:rgba(124,58,237,.1); color:var(--c-gemini); border:1px solid rgba(124,58,237,.3); }
+  .bg-canva      { background:rgba(8,145,178,.1); color:var(--c-canva); border:1px solid rgba(8,145,178,.3); }
+  .bg-claude     { background:rgba(180,83,9,.1); color:var(--c-claude); border:1px solid rgba(180,83,9,.3); }
+  .bg-photo      { background:rgba(220,38,38,.1); color:var(--c-photo); border:1px solid rgba(220,38,38,.3); }
+  .bg-wolfram    { background:rgba(185,28,28,.1); color:var(--c-wolfram); border:1px solid rgba(185,28,28,.3); }
+
+  .gt-notebook   { color:var(--c-notebook); border-color:var(--c-notebook); background:rgba(13,148,136,.06); }
+  .gt-perplexity { color:var(--c-perplexity); border-color:var(--c-perplexity); background:rgba(37,99,235,.06); }
+  .gt-gemini     { color:var(--c-gemini); border-color:var(--c-gemini); background:rgba(124,58,237,.06); }
+  .gt-canva      { color:var(--c-canva); border-color:var(--c-canva); background:rgba(8,145,178,.06); }
+  .gt-claude     { color:var(--c-claude); border-color:var(--c-claude); background:rgba(180,83,9,.06); }
+  .gt-photo      { color:var(--c-photo); border-color:var(--c-photo); background:rgba(220,38,38,.06); }
+  .gt-wolfram    { color:var(--c-wolfram); border-color:var(--c-wolfram); background:rgba(185,28,28,.06); }
+
+  @media(max-width:600px){
+    .pres-card { flex-direction:column; }
+    .formula-grid { grid-template-columns:1fr 1fr; }
+    .tool-link { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">✦ Recursos de la sesión</div>
+  <h1>IA <span class="accent">Copiloto</span><br>Académico</h1>
+  <p class="hero-sub">Todo lo que necesitas para estudiar mejor, más rápido y con criterio. Guarda esta página: herramientas, prompts y recursos listos para usar.</p>
+</div>
+
+<nav class="nav-bar">
+  <a href="#herramientas" class="nav-pill">🧰 Herramientas</a>
+  <a href="#cuando" class="nav-pill">🗺️ Cuándo usar cada una</a>
+  <a href="#prompts-oro" class="nav-pill">✨ Prompts de oro</a>
+  <a href="#presentacion" class="nav-pill">📽️ Presentación</a>
+  <a href="#supervivencia" class="nav-pill">🛡️ Supervivencia</a>
+</nav>
+
+<div class="content">
+
+<!-- ══ HERRAMIENTAS ══ -->
+<div class="section">
+  <a class="anchor" id="herramientas"></a>
+  <div class="section-header"><span class="section-label">Herramientas</span></div>
+  <div class="section-title">Las IAs de tu kit académico</div>
+  <p class="section-desc">Todas gratuitas en su versión básica. Cada una tiene un papel concreto — la clave es saber cuándo usar cuál.</p>
+  <div class="tools-grid">
+
+    <!-- NOTEBOOKLM -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-notebook"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-notebook">🗒️</div>
+        <div class="tool-info">
+          <div class="tool-name">NotebookLM <span class="badge-free bg-notebook">Google · Gratis</span></div>
+          <div class="tool-tagline">Tu cuaderno inteligente. Sube tus apuntes y genera todo tipo de material de estudio directamente desde ellos. Sin alucinaciones: solo habla de lo que tú has subido.</div>
+        </div>
+        <a href="https://notebooklm.google.com" target="_blank" class="tool-link tl-notebook">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">📝 Resumen de apuntes</span>
+          <span class="use-tag">🃏 Tarjetas de estudio</span>
+          <span class="use-tag">❓ Cuestionario automático</span>
+          <span class="use-tag">🗺️ Mapa mental</span>
+          <span class="use-tag">🎙️ Podcast de tus apuntes</span>
+          <span class="use-tag">📊 Tabla comparativa</span>
+          <span class="use-tag">🎥 Resumen de vídeo</span>
+          <span class="use-tag">📋 Guía de estudio</span>
+          <span class="use-tag">🎯 Simulacro de examen</span>
+        </div>
+        <div class="divider"></div>
+        <div class="prompts-stack">
+          <div class="prompt-card pb-notebook">
+            <div class="prompt-meta pl-notebook">Cuestionario personalizado</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Actúa como profesor de <em>[asignatura]</em>. Hazme un cuestionario de <em>[X]</em> preguntas sobre <em>[tema]</em> de mis apuntes, dirigido a un alumno de <em>[curso]</em>. Mezcla preguntas de definición corta y preguntas de análisis. Al terminar, dame la clave de respuestas con explicación de cada una.</div>
+          </div>
+          <div class="prompt-card pb-notebook">
+            <div class="prompt-meta pl-notebook">Simulacro de examen</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Eres un profesor de <em>[asignatura]</em> preparando un examen real para alumnos de <em>[curso]</em>. Basándote solo en mis apuntes, diseña un simulacro con preguntas de definición, desarrollo y análisis. Al final, incluye la clave de corrección con criterios de puntuación.</div>
+          </div>
+          <div class="prompt-card pb-notebook">
+            <div class="prompt-meta pl-notebook">Tabla comparativa</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Compara <em>[concepto A]</em> y <em>[concepto B]</em> en una tabla con columnas: definición, características principales, diferencias clave y un ejemplo de cada uno. Basa la respuesta solo en mis apuntes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERPLEXITY -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-perplexity"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-perplexity">🔍</div>
+        <div class="tool-info">
+          <div class="tool-name">Perplexity <span class="badge-free bg-perplexity">Gratis</span></div>
+          <div class="tool-tagline">El buscador con IA que cita sus fuentes. Cada dato tiene un enlace real verificable. Tiene también un modo "Deep Research" para investigaciones en profundidad.</div>
+        </div>
+        <a href="https://www.perplexity.ai" target="_blank" class="tool-link tl-perplexity">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">🔎 Investigación con fuentes reales</span>
+          <span class="use-tag">📰 Noticias y eventos actuales</span>
+          <span class="use-tag">✅ Verificar datos antes de entregar</span>
+          <span class="use-tag">📚 Encontrar bibliografía fiable</span>
+          <span class="use-tag">🔬 Investigación profunda (Deep Research)</span>
+        </div>
+        <div class="divider"></div>
+        <div class="prompts-stack">
+          <div class="prompt-card pb-perplexity">
+            <div class="prompt-meta pl-perplexity">Investigación inicial con fuentes</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Soy estudiante de <em>[curso]</em> y necesito entender <em>[tema]</em> para un trabajo académico de <em>[asignatura]</em>. Dame los 5 datos más relevantes que debería conocer, con una fuente verificable para cada uno. Prioriza fuentes académicas o de medios de referencia.</div>
+          </div>
+          <div class="prompt-card pb-perplexity">
+            <div class="prompt-meta pl-perplexity">Investigación profunda (Deep Research)</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Haz una investigación profunda sobre <em>[tema específico]</em>. Necesito: contexto histórico o de fondo, estado actual de la cuestión, distintas posturas si existen, y al menos 3 fuentes fiables con enlace. El resultado va a usarse como base para un trabajo de <em>[asignatura]</em>.</div>
+          </div>
+          <div class="prompt-card pb-perplexity">
+            <div class="prompt-meta pl-perplexity">Verificar un dato concreto</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Necesito verificar si esta afirmación es correcta antes de incluirla en un trabajo: "<em>[afirmación]</em>". Busca fuentes fiables y dime si está confirmada, matizada o es incorrecta, con los enlaces correspondientes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GEMINI -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-gemini"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-gemini">✨</div>
+        <div class="tool-info">
+          <div class="tool-name">Gemini <span class="badge-free bg-gemini">Google · Gratis</span></div>
+          <div class="tool-tagline">Tu tutor personal que nunca se cansa. Explica, genera ideas, orienta trabajos, planifica el estudio y también crea imágenes o audio. El más versátil del kit.</div>
+        </div>
+        <a href="https://gemini.google.com" target="_blank" class="tool-link tl-gemini">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">🧠 Lluvia de ideas para trabajos</span>
+          <span class="use-tag">📖 Explicaciones adaptadas a tu nivel</span>
+          <span class="use-tag">🗂️ Orientar y estructurar trabajos</span>
+          <span class="use-tag">📅 Plan de estudio personalizado</span>
+          <span class="use-tag">🎨 Crear imágenes con IA (Imagen 3)</span>
+          <span class="use-tag">🔊 Generar audio y podcast</span>
+          <span class="use-tag">🔄 Reformular y mejorar textos</span>
+          <span class="use-tag">💬 Conversar sobre cualquier tema</span>
+        </div>
+        <div class="divider"></div>
+        <div class="prompts-stack">
+          <div class="prompt-card pb-gemini">
+            <div class="prompt-meta pl-gemini">Lluvia de ideas</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Actúa como orientador académico. Tengo que hacer un trabajo de <em>[curso]</em> sobre <em>[tema general]</em>. Propónme 6 enfoques concretos y originales sobre los que podría trabajar. Explica cada uno en una línea y señala cuál crees que tiene más potencial y por qué.</div>
+          </div>
+          <div class="prompt-card pb-gemini">
+            <div class="prompt-meta pl-gemini">Explicación adaptada</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Explícame <em>[concepto]</em> como si fuera un alumno de <em>[curso]</em> sin conocimientos previos. Usa una analogía del mundo cotidiano que no tenga nada que ver con <em>[materia]</em>. Si es complejo, divídelo en pasos cortos.</div>
+          </div>
+          <div class="prompt-card pb-gemini">
+            <div class="prompt-meta pl-gemini">Orientación de trabajo</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Tengo que hacer un trabajo sobre <em>[tema]</em> para <em>[asignatura]</em>. Antes de proponer nada, hazme 3 preguntas para entender qué enfoque quiero darle. Cuando las responda, proponme un índice de <em>[X]</em> apartados con una línea de descripción cada uno. No hagas el trabajo por mí.</div>
+          </div>
+          <div class="prompt-card pb-gemini">
+            <div class="prompt-meta pl-gemini">Plan de examen (sube tus apuntes)</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Estos son mis apuntes de <em>[asignatura]</em>. Tengo el examen en <em>[X]</em> días y puedo estudiar <em>[Y]</em> horas al día. Diseña un plan de estudio día a día: qué tema toco cada día y qué herramienta de NotebookLM usar para repasar (tarjetas, cuestionario, mapa mental, podcast…).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANVA IA -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-canva"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-canva">🎨</div>
+        <div class="tool-info">
+          <div class="tool-name">Canva IA <span class="badge-free bg-canva">Gratis (básico)</span></div>
+          <div class="tool-tagline">De tu trabajo escrito a una presentación lista en minutos. Le dices qué quieres, subes tu documento y Canva diseña las diapositivas con el estilo que elijas.</div>
+        </div>
+        <a href="https://www.canva.com/ai" target="_blank" class="tool-link tl-canva">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">📊 Presentaciones para clase</span>
+          <span class="use-tag">📄 Trabajo escrito → diapositivas</span>
+          <span class="use-tag">🖼️ Crear imágenes con IA</span>
+          <span class="use-tag">🗂️ Esquemas e infografías</span>
+          <span class="use-tag">📋 Portadas y documentos visuales</span>
+        </div>
+        <div class="divider"></div>
+        <div class="prompts-stack">
+          <div class="prompt-card pb-canva">
+            <div class="prompt-meta pl-canva">Presentación desde tu documento</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Quiero convertir este trabajo en una presentación para exponer en clase. El tema es "<em>[tema]</em>". Resúmelo en unas <em>[X]</em> diapositivas manteniendo las ideas principales. Quiero que el diseño use colores <em>[ej: azul marino y naranja / tonos verdes / los del documento...]</em>, con formas <em>[ej: geométricas y limpias / redondeadas y modernas / minimalistas...]</em>, poco texto por diapositiva y espacio para imágenes. Tono claro y visual para una clase de <em>[curso]</em>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAUDE -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-claude"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-claude">🤖</div>
+        <div class="tool-info">
+          <div class="tool-name">Claude <span class="badge-free bg-claude">Anthropic · Gratis</span></div>
+          <div class="tool-tagline">Una IA de Anthropic especialmente buena para leer, escribir y razonar con matiz. Si Gemini es tu tutor, Claude es tu editor y crítico de confianza — y va mucho más allá del texto.</div>
+        </div>
+        <a href="https://claude.ai" target="_blank" class="tool-link tl-claude">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">✍️ Revisar y mejorar redacciones</span>
+          <span class="use-tag">📝 Feedback detallado de textos</span>
+          <span class="use-tag">🧩 Razonamiento complejo paso a paso</span>
+          <span class="use-tag">📚 Analizar PDFs y documentos largos</span>
+          <span class="use-tag">💬 Conversación profunda y matizada</span>
+          <span class="use-tag">🛠️ Ayuda con código y matemáticas</span>
+          <span class="use-tag">🗂️ Proyectos con contexto guardado (Claude Projects)</span>
+          <span class="use-tag">💻 Automatizar tareas en el ordenador (Cowork)</span>
+        </div>
+
+        <div style="background:rgba(180,83,9,.07);border:1px solid rgba(180,83,9,.18);border-radius:10px;padding:13px 16px;margin-bottom:16px;font-size:13px;color:#374151;line-height:1.6;">
+          <strong style="color:var(--c-claude);">💡 ¿Qué son Claude Projects y Cowork?</strong><br>
+          <b>Claude Projects</b> te permite crear un espacio de trabajo donde Claude recuerda el contexto de tu proyecto —tus documentos, tu asignatura, tu estilo— a lo largo de varias conversaciones. Muy útil para trabajos largos que evolucionan durante semanas.<br><br>
+          <b>Cowork</b> es una herramienta de escritorio que permite a Claude gestionar archivos, organizar carpetas y automatizar tareas repetitivas en tu ordenador sin que tengas que hacerlo tú manualmente.
+        </div>
+
+        <div class="divider"></div>
+        <div class="prompts-stack">
+          <div class="prompt-card pb-claude">
+            <div class="prompt-meta pl-claude">Revisión de redacción</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Actúa como corrector editorial. Lee esta redacción mía: <em>[pega tu texto]</em>. Corrige los errores de ortografía, gramática y estilo, pero mantén mi voz y mis ideas originales. Al terminar, explícame los 3 cambios más importantes que hayas hecho y por qué mejoran el texto.</div>
+          </div>
+          <div class="prompt-card pb-claude">
+            <div class="prompt-meta pl-claude">Feedback constructivo</div>
+            <button class="copy-btn" onclick="cp(this)">Copiar</button>
+            <div class="prompt-text">Eres un profesor de <em>[asignatura]</em> que evalúa trabajos de alumnos de <em>[curso]</em>. Lee este <em>[trabajo / ensayo / respuesta]</em> y dame feedback honesto: qué está bien desarrollado, qué argumentos son débiles o incompletos, y qué cambiarías concretamente para mejorar. Sé directo y específico, no genérico. No lo reescribas tú.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHOTOMATH -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-photo"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-photo">📷</div>
+        <div class="tool-info">
+          <div class="tool-name">Photomath <span class="badge-free bg-photo">App · Gratis</span></div>
+          <div class="tool-tagline">Apuntas la cámara a un ejercicio de matemáticas y te lo resuelve paso a paso, explicando cada operación. Perfecta para entender dónde te has equivocado, no solo ver el resultado final.</div>
+        </div>
+        <a href="https://photomath.com" target="_blank" class="tool-link tl-photo">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">📷 Foto del ejercicio → solución paso a paso</span>
+          <span class="use-tag">📐 Álgebra, geometría y cálculo</span>
+          <span class="use-tag">🔢 Aritmética y fracciones</span>
+          <span class="use-tag">📊 Estadística básica</span>
+          <span class="use-tag">🧮 Ver el proceso completo, no solo el resultado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WOLFRAM ALPHA -->
+    <div class="tool-card">
+      <div class="tool-stripe stripe-wolfram"></div>
+      <div class="tool-header">
+        <div class="tool-icon icon-wolfram">🧮</div>
+        <div class="tool-info">
+          <div class="tool-name">Wolfram Alpha <span class="badge-free bg-wolfram">Web · Gratis</span></div>
+          <div class="tool-tagline">El motor de cálculo científico más potente de la web. Resuelve matemáticas avanzadas, representa gráficas, trabaja con fórmulas físicas y químicas. Imprescindible para bachillerato científico.</div>
+        </div>
+        <a href="https://www.wolframalpha.com" target="_blank" class="tool-link tl-wolfram">Abrir →</a>
+      </div>
+      <div class="tool-body">
+        <div class="uses-label">Qué puede hacer</div>
+        <div class="uses-list">
+          <span class="use-tag">🧮 Cálculo simbólico avanzado</span>
+          <span class="use-tag">📈 Representar funciones y gráficas</span>
+          <span class="use-tag">⚗️ Fórmulas de física y química</span>
+          <span class="use-tag">📐 Geometría analítica</span>
+          <span class="use-tag">🔬 Constantes, conversiones y datos científicos</span>
+          <span class="use-tag">🔢 Límites, derivadas e integrales</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CUÁNDO USAR ══ -->
+<div class="section">
+  <a class="anchor" id="cuando"></a>
+  <div class="section-header"><span class="section-label">Guía rápida</span></div>
+  <div class="section-title">¿Cuándo uso cada una?</div>
+  <p class="section-desc">No hace falta usar todas. Elige la que mejor encaja con lo que necesitas en ese momento.</p>
+  <div class="guide-wrap">
+    <table>
+      <thead><tr><th>Si necesitas…</th><th>Usa</th></tr></thead>
+      <tbody>
+        <tr><td>Estudiar con tus propios apuntes y generar material de repaso</td><td><span class="guide-tool gt-notebook">🗒️ NotebookLM</span></td></tr>
+        <tr><td>Buscar información con fuentes y enlaces reales verificables</td><td><span class="guide-tool gt-perplexity">🔍 Perplexity</span></td></tr>
+        <tr><td>Entender un concepto difícil o arrancar un trabajo desde cero</td><td><span class="guide-tool gt-gemini">✨ Gemini</span></td></tr>
+        <tr><td>Hacer un plan de estudio personalizado para un examen</td><td><span class="guide-tool gt-gemini">✨ Gemini</span> + <span class="guide-tool gt-notebook" style="margin-left:4px">🗒️ NotebookLM</span></td></tr>
+        <tr><td>Convertir un trabajo escrito en presentación visual</td><td><span class="guide-tool gt-canva">🎨 Canva IA</span></td></tr>
+        <tr><td>Crear imágenes para ilustrar un trabajo o presentación</td><td><span class="guide-tool gt-gemini">✨ Gemini</span> o <span class="guide-tool gt-canva" style="margin-left:4px">🎨 Canva IA</span></td></tr>
+        <tr><td>Revisar y mejorar una redacción o ensayo</td><td><span class="guide-tool gt-claude">🤖 Claude</span></td></tr>
+        <tr><td>Resolver ejercicios de mates o física con explicación paso a paso (foto)</td><td><span class="guide-tool gt-photo">📷 Photomath</span></td></tr>
+        <tr><td>Calcular, graficar o resolver fórmulas científicas avanzadas</td><td><span class="guide-tool gt-wolfram">🧮 Wolfram Alpha</span></td></tr>
+        <tr><td>Verificar si un dato que vas a entregar en un trabajo es real</td><td><span class="guide-tool gt-perplexity">🔍 Perplexity</span></td></tr>
+        <tr><td>Trabajar en un proyecto largo con contexto guardado entre sesiones</td><td><span class="guide-tool gt-claude">🤖 Claude Projects</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ PROMPTS DE ORO ══ -->
+<div class="section">
+  <a class="anchor" id="prompts-oro"></a>
+  <div class="section-header"><span class="section-label">Prompts de oro</span></div>
+  <div class="section-title">Cómo pedirle bien a una IA</div>
+
+  <div class="prompt-guide">
+    <div class="prompt-guide-title">✦ La clave está en cómo preguntas</div>
+    <div class="prompt-guide-sub">La IA no lee tu mente. Cuanto mejor le expliques quién eres, qué quieres y cómo lo quieres, mejor será el resultado. Hay 5 ingredientes que marcan la diferencia:</div>
+    <div class="formula-grid">
+      <div class="formula-box">
+        <div class="formula-num">01 · Rol</div>
+        <div class="formula-name">Dale un papel</div>
+        <div class="formula-desc">"Actúa como profesor de…" Cambia totalmente el tono y la profundidad de la respuesta.</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-num">02 · Contexto</div>
+        <div class="formula-name">Explica tu situación</div>
+        <div class="formula-desc">Curso, asignatura, para qué es. Cuanto más específico, más útil la respuesta.</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-num">03 · Objetivo</div>
+        <div class="formula-name">Di qué quieres lograr</div>
+        <div class="formula-desc">No "explícame X", sino "quiero entender X para poder hacer Y sin que lo hagas tú".</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-num">04 · Formato</div>
+        <div class="formula-name">Pide la forma que necesitas</div>
+        <div class="formula-desc">Lista, tabla, pasos, resumen de 5 puntos, "como si tuviera 12 años"… Tú decides.</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-num">05 · Límites</div>
+        <div class="formula-name">Marca los bordes</div>
+        <div class="formula-desc">"Sin hacer el trabajo por mí", "máximo 200 palabras", "solo con mis apuntes".</div>
+      </div>
+    </div>
+    <div class="formula-example">
+      <div class="formula-example-label">Ejemplo — prompt sin trabajar vs. prompt con los 5 ingredientes</div>
+      <div class="formula-example-text">
+        ❌ <em>"Explícame la fotosíntesis"</em><br><br>
+        ✅ <em>"Eres un profesor de Biología. Tengo 14 años y estoy en 2.º de ESO. Necesito entender cómo funciona la fotosíntesis para poder explicarla en un examen oral, no solo memorizarla. Explícamela en 4 pasos claros con una analogía cotidiana. Sin tecnicismos innecesarios."</em>
+      </div>
+    </div>
+    <div class="formula-tips">
+      <div class="formula-tip"><span class="formula-tip-icon">🔄</span> Si la respuesta no te convence, pídele que lo reformule, simplifique o cambie el enfoque. La IA no se cansa.</div>
+      <div class="formula-tip"><span class="formula-tip-icon">➕</span> Puedes ir refinando en la misma conversación: "ahora hazlo más corto" o "pon un ejemplo diferente".</div>
+      <div class="formula-tip"><span class="formula-tip-icon">🧭</span> Si no sabes cómo empezar el prompt, pídele que te haga preguntas primero antes de responder.</div>
+    </div>
+  </div>
+
+  <div class="gold-grid">
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt de orientación universal</div>
+      <div class="gold-text">Actúa como orientador académico. Tengo que hacer <em>[trabajo / presentación / examen]</em> sobre <em>[tema]</em> para <em>[asignatura]</em>. Soy de <em>[curso]</em>. Antes de proponer nada, hazme 3 preguntas para entender qué enfoque quiero darle. Cuando las responda, ayúdame a estructurarlo. No hagas el trabajo por mí.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt "ponme a prueba"</div>
+      <div class="gold-text">Actúa como profesor de <em>[asignatura]</em>. Hazme 5 preguntas sobre <em>[tema]</em>, una a una — espera mi respuesta antes de pasar a la siguiente. Al terminar, dime cuántas he acertado, en qué he fallado y por qué, con la explicación correcta de cada error.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt "explícamelo de otra manera"</div>
+      <div class="gold-text">No he entendido tu explicación anterior. Explícamelo de otra forma: usa una analogía diferente del mundo real que no tenga nada que ver con <em>[tema]</em>, divide la explicación en pasos cortos y usa frases simples. Dime también qué parte exacta suele costar más entender.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt de resumen inteligente</div>
+      <div class="gold-text">Resume <em>[texto / tema / apuntes]</em> en exactamente 8 puntos clave, ordenados de más a menos importante. Para cada punto: una frase principal y una frase de explicación. Usa lenguaje claro, como si se lo explicaras a alguien de <em>[curso]</em> sin conocimientos previos del tema.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt anti-folio en blanco</div>
+      <div class="gold-text">No sé por dónde empezar con <em>[tarea / trabajo / redacción]</em>. No me des el resultado: hazme las 4 preguntas que yo debería hacerme para poder empezar. Cuando las responda, ayúdame a dar el primer paso concreto.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+    <div class="gold-card">
+      <div class="gold-title">✦ El prompt "dame feedback honesto"</div>
+      <div class="gold-text">Eres un profesor de <em>[asignatura]</em> que evalúa trabajos de <em>[curso]</em>. Lee lo que he escrito: <em>[pega tu texto]</em>. Dame feedback honesto y específico: qué está bien desarrollado, qué argumentos son débiles y qué cambiarías para mejorar la nota. No lo reescribas: solo dame las instrucciones para que lo mejore yo.</div>
+      <button class="gold-copy" onclick="cpG(this)">Copiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRESENTACIÓN ══ -->
+<div class="section">
+  <a class="anchor" id="presentacion"></a>
+  <div class="section-header"><span class="section-label">La presentación</span></div>
+  <div class="pres-card">
+    <div class="pres-icon">📽️</div>
+    <div>
+      <div class="pres-title">IA en el estudio: ¿mejor aprendizaje o peor hábito?</div>
+      <div class="pres-desc">El guion completo de la sesión con todos los ejemplos, capturas y pasos explicados en clase. Consúltalo cuando quieras para recordar cómo funciona cada herramienta.</div>
+      <a href="https://canva.link/n5gme0swkcwzl1o" target="_blank" class="pres-btn">Ver presentación completa ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SUPERVIVENCIA ══ -->
+<div class="section" style="padding-bottom:80px;">
+  <a class="anchor" id="supervivencia"></a>
+  <div class="section-header"><span class="section-label">Manual de supervivencia</span></div>
+  <div class="section-title">Lo que nadie te dice sobre usar IA</div>
+  <div class="survival-grid">
+    <div class="survival-card">
+      <div class="survival-icon">⚠️</div>
+      <div class="survival-label">La IA se equivoca</div>
+      <div class="survival-text">Se inventa fechas, confunde personas y genera errores con total seguridad. Nunca pongas un dato en un trabajo sin verificarlo primero.</div>
+    </div>
+    <div class="survival-card">
+      <div class="survival-icon">✅</div>
+      <div class="survival-label">Confía, pero verifica</div>
+      <div class="survival-text">Si va a un trabajo o examen, comprueba que es real. Usa Perplexity o NotebookLM que siempre citan sus fuentes.</div>
+    </div>
+    <div class="survival-card">
+      <div class="survival-icon">🧑‍✈️</div>
+      <div class="survival-label">Tú eres el piloto</div>
+      <div class="survival-text">La IA es el copiloto. Sin ti, no llega a ningún sitio. Las ideas, el criterio y la responsabilidad son siempre tuyas.</div>
+    </div>
+    <div class="survival-card">
+      <div class="survival-icon">🔗</div>
+      <div class="survival-label">NotebookLM = sin alucinaciones</div>
+      <div class="survival-text">Cuando subes tus apuntes, solo habla de lo que está ahí. Siempre cita de dónde viene cada respuesta.</div>
+    </div>
+    <div class="survival-card">
+      <div class="survival-icon">🔄</div>
+      <div class="survival-label">No te quedes con la primera</div>
+      <div class="survival-text">Si no te convence, pídele que lo reformule o cambie el enfoque. Puedes pedir varias versiones y quedarte con lo mejor de cada una.</div>
+    </div>
+    <div class="survival-card">
+      <div class="survival-icon">🚫</div>
+      <div class="survival-label">No es para hacer el trabajo</div>
+      <div class="survival-text">Úsala para entender, orientarte y revisar. Si lo hace todo ella, aprendes menos y el resultado suele notarse. Tú eres quien estudia.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<footer>
+  <strong>IA Copiloto Académico</strong> — Recursos de la sesión<br><br>
+  <span style="opacity:.6">Todas las herramientas son gratuitas en su versión básica · Recurso creado para uso educativo</span>
+</footer>
+
+<script>
+  function cp(btn) {
+    const t = btn.closest('.prompt-card').querySelector('.prompt-text').innerText;
+    navigator.clipboard.writeText(t).then(() => {
+      btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  function cpG(btn) {
+    const t = btn.closest('.gold-card').querySelector('.gold-text').innerText;
+    navigator.clipboard.writeText(t).then(() => {
+      btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
